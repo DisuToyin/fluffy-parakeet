@@ -25,7 +25,7 @@ class ImageManipulationController extends Controller
      * @param  \App\Http\Requests\StoreImageManipulationRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreImageManipulationRequest $request)
+    public function resize(StoreImageManipulationRequest $request)
     {
         //
     }
@@ -49,6 +49,11 @@ class ImageManipulationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateImageManipulationRequest $request, ImageManipulation $imageManipulation)
+    {
+        //
+    }
+
+    public function byAlbum(ImageManipulation $imageManipulation)
     {
         //
     }
