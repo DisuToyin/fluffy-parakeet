@@ -27,7 +27,41 @@ class ImageManipulationController extends Controller
      */
     public function resize(StoreImageManipulationRequest $request)
     {
-        //
+        $all = $request->all();
+
+        /** @var UploadedFile|string $image */
+        $image = $all['image'];
+        unset($all['image']);
+        $data = [
+            'type' => ImageManipulation::TYPE_RESIZE,
+            'data' => json_encode($all),
+            'user_id' => null,
+        ];
+
+        if(isset($all['album_id'])){
+            //TODO
+            $data['album_id'] = $all['album_id'];
+        }
+
+
+        $dir = 'images/'.Str::random().'/';
+        $absolutePath = public_path($dir);
+        File::makeDirectory($absolutePath);
+
+
+        //images/yeyewueiue/test.jpg
+        //images/yeyewueiue/test-resized.jpg
+        if($image instanceof UploadedFile){
+            $data['name'] = $image->getClientOriginalName();
+            //test.jpg -> text-resized.jpg
+            $filename = pathinfo($data['name'], PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtention();
+
+            $image->move($absolutePath, $data['name']);
+            $data['path'] =$dir.$data['name'];
+        }else{
+            
+        }
     }
 
     /**
